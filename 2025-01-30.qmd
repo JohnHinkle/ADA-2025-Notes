@@ -12,8 +12,50 @@ library(sjmisc)
 library(tidyverse)
 ```
 
-txt
+Load data (csv file)
+
 ```{r}
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/KamilarAndCooperData.csv"
+d <- read_csv(f, col_names = TRUE)
+```
+
+average brain size
+
+```{r}
+mean(d$Brain_Size_Species_Mean, na.rm = TRUE)
 
 ```
 
+attach
+
+```{r}
+attach(d)
+```
+
+summary
+
+```{r}
+summary(d)
+```
+
+Skimming, a more complete summary
+
+```{r}
+library(skimr)
+skim(d)
+```
+
+boxplot using base R
+```{r}
+boxplot(log(d$Body_mass_female_mean) ~Family)
+stripchart(log(d$Body_mass_female_mean) ~Family, method = "jitter", col = "blue", vertical = TRUE, add = TRUE)
+```
+
+boxplot (using ggplot2)
+
+```{r}
+library(ggplot2)
+ggplot(data = d, 
+       aes (x = "", y = log(Body_mass_female_mean))) +
+         geom_boxplot(na.rm=TRUE)
+```
