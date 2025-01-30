@@ -1,0 +1,19 @@
+---
+title: "2025-01-30"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+Load packages
+
+```{r}
+library(sjmisc)
+library(tidyverse)
+```
+
+txt
+```{r}
+
+```
+

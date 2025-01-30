@@ -13,7 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-
 ```{r}
 
 f <- "/Users/jeh5663/Documents/ADA-2025-Notes/Country-Data-2016.csv"
@@ -25,4 +24,23 @@ d$density <- d$population / d$area
 
 dns <- d$population / d$area
 d <- mutate(d, density = dns)
+sorted_d <- arrange(d, desc(density))
+```
+
+10 most dense countries
+
+```{r}
+head(sorted_d, 10)
+```
+
+10 least dense countries
+
+```{r}
+tail(sorted_d, 10)
+```
+
+txt
+
+```{r}
+
 ```
