@@ -48,7 +48,7 @@ skim(d)
 boxplot using base R
 ```{r}
 boxplot(log(d$Body_mass_female_mean) ~Family)
-stripchart(log(d$Body_mass_female_mean) ~Family, method = "jitter", col = "blue", vertical = TRUE, add = TRUE)
+stripchart(log(d$Body_mass_female_mean) ~Family, method = "jitter", col = "skyblue", vertical = TRUE, add = TRUE)
 ```
 
 boxplot (using ggplot2)
@@ -57,5 +57,7 @@ boxplot (using ggplot2)
 library(ggplot2)
 ggplot(data = d, 
        aes (x = "", y = log(Body_mass_female_mean))) +
-         geom_boxplot(na.rm=TRUE)
+  geom_boxplot(na.rm=TRUE) +
+  geom_jitter(color ="skyblue", width=0.1)
+        
 ```
