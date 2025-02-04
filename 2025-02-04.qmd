@@ -55,3 +55,16 @@ s <- select(d, Family, Genus, Body_mass_male_mean)
 ```{r}
 s <- arrange(d, Family, Genus, desc(Body_mass_male_mean))
 ```
+
+### In-Class Exercise
+
+```{r}
+file <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/IMDB-movies.csv"
+df <- read_csv(file, col_names = TRUE)
+```
+
+text
+
+```{r}
+
+```
