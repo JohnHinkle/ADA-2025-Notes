@@ -7,10 +7,25 @@ editor: visual
 
 ## February 4th, 2025 Class Notes
 
+load
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/KamilarAndCooperData.csv"
+d <- read_csv(f, col_names = TRUE)
+```
+
 txt
 
 ```{r}
-
+ggplot(data = d, aes(
+  x = log(Body_mass_female_mean), 
+  y = log(Brain_Size_Female_Mean)
+)) +
+  geom_point(na.rm = TRUE, color = '#bf5700') +
+  geom_smooth(method ="lm", na.rm = TRUE, color ='black')
 ```
 
 txt

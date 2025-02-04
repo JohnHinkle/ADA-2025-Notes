@@ -46,6 +46,7 @@ skim(d)
 ```
 
 boxplot using base R
+
 ```{r}
 boxplot(log(d$Body_mass_female_mean) ~Family)
 stripchart(log(d$Body_mass_female_mean) ~Family, method = "jitter", col = "skyblue", vertical = TRUE, add = TRUE)
