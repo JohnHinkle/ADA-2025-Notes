@@ -17,7 +17,7 @@ f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/Kam
 d <- read_csv(f, col_names = TRUE)
 ```
 
-txt
+### Scatter plot with lines
 
 ```{r}
 ggplot(data = d, aes(
@@ -25,7 +25,9 @@ ggplot(data = d, aes(
   y = log(Brain_Size_Female_Mean)
 )) +
   geom_point(na.rm = TRUE, color = '#bf5700') +
-  geom_smooth(method ="lm", na.rm = TRUE, color ='black')
+  geom_smooth(method ="lm", na.rm = TRUE, color ='black') + # trend line with confidence interval
+  geom_vline(xintercept = 7, linetype='dotted', color='green4') + # vertical line at x = 7 
+  geom_hline(yintercept = 3, linetype='dotdash', color='skyblue') # horizonal line at y = 3
 ```
 
 txt
