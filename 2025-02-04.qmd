@@ -38,8 +38,20 @@ library(cowplot)
 plot_grid(p, p, p, p)
 ```
 
-text
+### Filtering with {dplyr}
 
 ```{r}
+s <- filter(d, Family == "Hominidae" & Mass_Dimorphism > 2)
+```
 
+### Selecting with {dplyr}
+
+```{r}
+s <- select(d, Family, Genus, Body_mass_male_mean)
+```
+
+### Sorting with {dplyr}
+
+```{r}
+s <- arrange(d, Family, Genus, desc(Body_mass_male_mean))
 ```
