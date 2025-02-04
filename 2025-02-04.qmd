@@ -20,7 +20,7 @@ d <- read_csv(f, col_names = TRUE)
 ### Scatter plot with lines
 
 ```{r}
-ggplot(data = d, aes(
+p <- ggplot(data = d, aes(
   x = log(Body_mass_female_mean), 
   y = log(Brain_Size_Female_Mean)
 )) +
@@ -30,7 +30,15 @@ ggplot(data = d, aes(
   geom_hline(yintercept = 3, linetype='dotdash', color='skyblue') # horizonal line at y = 3
 ```
 
-txt
+{cowplot} package
+
+```{r}
+library(cowplot)
+# arrange plots into a multi-paneled figure
+plot_grid(p, p, p, p)
+```
+
+text
 
 ```{r}
 
