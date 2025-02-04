@@ -1,0 +1,20 @@
+---
+title: "2025-02-04"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+## February 4th, 2025 Class Notes
+
+txt
+
+```{r}
+
+```
+
+txt
+
+```{r}
+
+```
