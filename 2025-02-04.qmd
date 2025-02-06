@@ -89,7 +89,38 @@ df <- df |> mutate(ranking = case_when(
 df |> group_by(genres) |> summarise(n(), mean(runtimeMinutes, na.rm=TRUE))
 ```
 
+Printing a numerical vector
+
+```{r}
+for (i in 1:5) {
+  print(i**2)
+}
+```
+
+Printing a text vector
+
+```{r}
+sequences <- c("AGATGCTACATACGGCAGCTGACGTCTCGCGCGATAGCGTAGCTATAGCT", "CGATAGCGTAGCTATACCGCGCGCGCGATATAGAGCTCTGT", "ATTTCATGACGATCATGACTAGCTA", "GGATCATAGCTACGTAGCTGC", "GCTAGCACGTGATTATAACTCATACGAGCTGATATACGT")
+
+for (i in sequences) {
+  print(i)
+}
+```
+
 text
+
+```{r}
+cumRT <- 0
+
+for (i in df$runtimeMinutes){
+  if (!is.na(i)){
+    cumRT <- cumRT + i
+    }
+  
+}
+
+print(cumRT)
+```
 
 ```{r}
 
