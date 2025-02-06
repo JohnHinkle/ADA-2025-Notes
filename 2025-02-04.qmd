@@ -115,11 +115,12 @@ cumRT <- 0
 for (i in df$runtimeMinutes){
   if (!is.na(i)){
     cumRT <- cumRT + i
-    }
-  
+  }
+  print(cumRT)
 }
+```
 
-print(cumRT)
+```{}
 ```
 
 ```{r}
