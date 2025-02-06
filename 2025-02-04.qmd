@@ -74,3 +74,23 @@ Count total movies and all comedy movies
 ```{r}
 df |> summarise(n(), sum(Comedy))
 ```
+
+Ranking
+
+```{r}
+df <- df |> mutate(ranking = case_when(
+  0 < averageRating & averageRating < 3.3 ~ "low",
+  3.3 <= averageRating & averageRating < 6.7 ~ "mid",
+  6.7 <= averageRating & averageRating < 10 ~ "high"
+))
+```
+
+```{r}
+df |> group_by(genres) |> summarise(n(), mean(runtimeMinutes, na.rm=TRUE))
+```
+
+text
+
+```{r}
+
+```
