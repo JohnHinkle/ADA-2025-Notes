@@ -66,5 +66,5 @@ df <- read_csv(file, col_names = TRUE)
 text
 
 ```{r}
-
+mutate(d, Comedy = ifelse())
 ```
