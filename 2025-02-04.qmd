@@ -120,9 +120,26 @@ for (i in df$runtimeMinutes){
 }
 ```
 
-```{}
+Join tables
+
+```{r}
+f1 <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/papers.csv"
+f2 <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/creators.csv"
+
+p <- read_csv(f1, col_names = TRUE)
+c <- read_csv(f2, col_names = TRUE)
 ```
 
 ```{r}
+p <- p |> 
+  separate_wider_delim(cols = Author,
+                       delim = ";",
+                       names = c("First Author", "A2", "A3", "A4"),
+                       too_few = "align_start", 
+                       too_many = "drop") |>
+  mutate(A2 = str_trim(A2, "both"),
+         A3 = str_trim(A3, "both"),
+         A4 = str_trim(A4, "both"))
 
+c <- c |> distinct()
 ```
