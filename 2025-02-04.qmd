@@ -66,5 +66,5 @@ df <- read_csv(file, col_names = TRUE)
 text
 
 ```{r}
-df <- df |> mutate(Comedy = if_else(grepl("Comedy", genres), TRUE, FALSE))
+df <- df |> mutate(Comedy = if_else(grepl("Comedy", genres, ignore.case = TRUE), TRUE, FALSE))
 ```
