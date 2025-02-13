@@ -1,0 +1,20 @@
+---
+title: "2025-02-13"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+## Load packages
+
+```{r}
+library(mosaic)
+library(radiant)
+```
+
+## Load packages
+
+```{r}
+library(mosaic)
+library(radiant)
+```
