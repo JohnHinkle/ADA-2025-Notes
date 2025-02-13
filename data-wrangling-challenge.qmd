@@ -1,0 +1,52 @@
+---
+title: "Data Wrangling Challenge"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+## Load in data
+
+```{r}
+library(tidyverse)
+f1 <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/sample_gps_data.csv"
+f2 <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/sample_behavioral_data.csv"
+
+gps <- read_csv(f1, col_names = TRUE)
+beh <- read_csv(f2, col_names = TRUE)
+```
+
+## df
+```{r}
+df <- beh |>
+  rowwise() |>
+  
+  filter(Date.Time > 2011 & Date.Time < 2015) |>
+  inner_join(gps, by = c("Observer" = "Observer")) |>
+  inner_join(gps, by = c("Date.Time" = "Date.Time"))
+```
+
+## Convert to UTM
+```{r}
+library(oce)
+df <- df |>
+  rowwise() |>
+  mutate(
+    easting = lonlat2utm(
+      `Mean.Longitude`,`Mean.Latitude`)$easting,
+    northing = lonlat2utm(
+      `Mean.Longitude`, `Mean.Latitude`)$northing +
+      10000000
+    )
+
+```
+
+## 
+```{r}
+
+```
+
+## 
+```{r}
+
+```
