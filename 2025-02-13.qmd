@@ -15,7 +15,7 @@ library(radiant)
 ### Load data
 
 ```{r}
-data <- c(371,222,383,438,111,625,922,100,482,44,33,3837,11,546)
+data <- c(371,222,383,438,111,625,922,100,482,404,373,3837,131,546,567,193,926,283,372,946)
 ```
 
 Sample variance is higher than population variance.
