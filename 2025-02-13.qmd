@@ -12,9 +12,26 @@ library(mosaic)
 library(radiant)
 ```
 
-## Load packages
+### Load data
 
 ```{r}
-library(mosaic)
-library(radiant)
+data <- c(371,222,383,438,111,625,922,100,482,44,33,3837,11,546)
+```
+
+Sample variance is higher than population variance.
+
+### Population variance function
+
+```{r}
+popvar <- function(data){
+ return(sum((data - mean(data))^2) / length(data))
+  }
+```
+
+### Sample variance function
+
+```{r}
+sampvar <- function(data){
+ return(sum((data - mean(data))^2) / (length(data)-1))
+  }
 ```
