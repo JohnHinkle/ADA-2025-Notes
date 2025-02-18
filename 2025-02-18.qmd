@@ -140,6 +140,62 @@ print(se_20 <- sd(sample_dist_mean_1000$mean))
 plotDist("t", df = 99, xlab = "x", ylab = "Frequency", col = "#bf5700")
 ```
 
+### Sample of 100 from t-distribution
+
+```{r}
+t_dist <- rt(n = 100, mean = 2, sd = 4)
+```
+
+### Mean
+
+```{r}
+mean(t_dist)
+```
+
+### Standard deviation
+
+```{r}
+print(t_stdev <- sd(t_dist))
+```
+
+### Standard error
+
+```{r}
+print(t_stderr <- stdev/sqrt(length(t_dist)))
+```
+
+### Draw 100 samples for mean
+
+```{r}
+# number of replicates
+reps_100 <- 100
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+t_sample_dist_mean_100 <- do(reps_100) * mean(rt(n = 100, mean = 2, sd = 4))
+print(t_se_100 <- sd(t_sample_dist_mean_100$mean))
+```
+
+### Draw 1000 samples for mean
+
+```{r}
+# number of replicates
+reps_1000 <- 1000
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+t_sample_dist_mean_1000 <- do(reps) * mean(rt(n = 100, mean = 2, sd = 4))
+t_print(se_1000 <- sd(t_sample_dist_mean_1000$mean))
+```
+
+### Draw 20 samples for mean
+
+```{r}
+reps_20 <- 20
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+t_sample_dist_mean_20 <- do(reps_20) * mean(rt(n = 100, mean = 2, sd = 4))
+print(t_se_20 <- sd(t_sample_dist_mean_1000$mean))
+```
+
 ### t
 
 ```{r}
