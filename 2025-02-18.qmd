@@ -70,31 +70,107 @@ print(paste("The standard error is", se))
 
 Interval around our estimate of the mean of the sampling distribution for a particular statistic (typically the mean).
 
-95% confidence interval = 95% chance statistic of a re-sample falls within the interval.
+95% confidence interval = 95% chance statistic of a re-sample of the population falls within the interval.
+
+## In-Class Exercise
+
+### Sample of 100 from normal distribution
+
+```{r}
+norm_dist <- rnorm(n = 100, mean = 2, sd = 4)
+```
+
+### Mean
+
+```{r}
+mean(norm_dist)
+```
+
+### Standard deviation
+
+```{r}
+print(stdev <- sd(norm_dist))
+```
+
+### Standard error
+
+```{r}
+print(stderr <- stdev/sqrt(length(norm_dist)))
+```
+
+### Draw 100 samples for mean
+
+```{r}
+# number of replicates
+reps_100 <- 100
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+sample_dist_mean_100 <- do(reps_100) * mean(rnorm(n = 100, mean = 2, sd = 4))
+print(se_100 <- sd(sample_dist_mean_100$mean))
+```
+
+### Draw 1000 samples for mean
+
+```{r}
+# number of replicates
+reps_1000 <- 1000
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+sample_dist_mean_1000 <- do(reps) * mean(rnorm(n = 100, mean = 2, sd = 4))
+print(se_1000 <- sd(sample_dist_mean_1000$mean))
+```
+
+### Draw 20 samples for mean
+
+```{r}
+reps_20 <- 20
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+sample_dist_mean_20 <- do(reps_20) * mean(rnorm(n = 100, mean = 2, sd = 4))
+print(se_20 <- sd(sample_dist_mean_1000$mean))
+```
+
+## In-Class Exercise #2
+
+### t-distribution
+
+\<30, "low" degrees of freedom
+
+```{r}
+plotDist("t", df = 99, xlab = "x", ylab = "Frequency", col = "#bf5700")
+```
+
+### t
 
 ```{r}
 
 ```
 
-## title
+### t
 
 ```{r}
 
 ```
 
-## title
+### t
 
 ```{r}
 
 ```
 
-## title
+### t
 
 ```{r}
 
 ```
 
-## title
+### t
+
+```{r}
+
+```
+
+### t
 
 ```{r}
 
