@@ -67,3 +67,27 @@ histogram(samp_dist_median$median)
 ```{r}
 
 ```
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
