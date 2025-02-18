@@ -7,16 +7,53 @@ editor: visual
 
 # February 18th, 2025 Notes
 
-## title
+## In
 
 ```{r}
+library(mosaic)
+mu <- 10 # "mean" parameter
+sigma <- 2 # "standard deviation" parameter
+plotDist("norm", mean=mu, sd=sigma, xlab="x", ylab="Frequency")
+```
+
+## Draw a random sample of 10 out of the normal distribution
+
+```{r}
+s1 <- rnorm (n = 10, mean = 10, sd = 2)
+mean(s1) # the mean of the random sample
+```
+
+## Draw a random sample of 10 out of the Poisson distribution
+
+```{r}
+s2 <- rpois(n = 10, lambda = 10)
+mean(s2)
+```
+
+## Sampling distributions
+
+```{r}
+# number of replicates
+reps <- 500
+
+# generates a sampling distribution for the mean of a sample with the specified parameters
+samp_dist_mean <- do(reps) * mean(rnorm(n = 10, mean = 10, sd = 2))
+
+# generates a sampling distribution for the median of a sample with the specified parameters
+samp_dist_median <-do(reps) * median(rnorm(n = 10, mean = 10, sd = 2))
 
 ```
 
-## title
+## Plot histograms of sample distributions for stats
+
+Sample size influences error of estimating mean (and median). Larger sample = narrower distribution/less error.
 
 ```{r}
+# mean
+histogram(samp_dist_mean$mean)
 
+# median
+histogram(samp_dist_median$median)
 ```
 
 ## title
