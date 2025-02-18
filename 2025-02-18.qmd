@@ -56,10 +56,14 @@ histogram(samp_dist_mean$mean)
 histogram(samp_dist_median$median)
 ```
 
-## title
+## Standard deviation and standard estimate based on a sample
 
 ```{r}
-
+x <- rnorm(n = 10, mean = 10, sd = 2)
+sd <- sd(x)
+se <- sd/sqrt(length(x))
+print(paste("The standard deviation is", sd))
+print(paste("The standard error is", se))
 ```
 
 ## title
