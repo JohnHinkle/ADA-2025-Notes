@@ -1,0 +1,32 @@
+---
+title: "2025-02-18"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+# February 18th, 2025 Notes
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
+
+## title
+
+```{r}
+
+```
