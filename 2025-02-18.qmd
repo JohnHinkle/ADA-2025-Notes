@@ -60,8 +60,8 @@ histogram(samp_dist_median$median)
 
 ```{r}
 x <- rnorm(n = 10, mean = 10, sd = 2)
-sd <- sd(x) # population
-se <- sd/sqrt(length(x)) # sample
+sd <- sd(x) # std dev
+se <- sd/sqrt(length(x)) # std error
 print(paste("The standard deviation is", sd))
 print(paste("The standard error is", se))
 ```
