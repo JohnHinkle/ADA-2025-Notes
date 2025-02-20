@@ -7,12 +7,13 @@ editor: visual
 
 ## February 20th, 2025 Notes
 
-## Running Code
-
-text
+## Beta distribution
 
 ```{r}
-
+library(mosaic)
+plotDist("beta", shape1 = 0.3, shape2 = 4)
+x <- rbeta(n=1000,.3, 4)
+histogram(x)
 ```
 
 ## Running Code
@@ -54,3 +55,5 @@ text
 ```{r}
 
 ```
+
+m
