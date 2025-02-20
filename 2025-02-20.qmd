@@ -1,0 +1,16 @@
+---
+title: "Untitled"
+format: html
+self-contained: true
+editor: visual
+---
+
+## February 20th, 2025 Notes
+
+## Running Code
+
+text
+
+```{r}
+
+```
