@@ -14,6 +14,45 @@ library(mosaic)
 plotDist("beta", shape1 = 0.3, shape2 = 4)
 x <- rbeta(n=1000,.3, 4)
 histogram(x)
+standard_error1 <- sd(x)/sqrt(length(x))
+standard_error1
+```
+
+## Sample
+
+500 reps of 100 samples
+
+Smaller sample = larger standard error
+
+```{r}
+reps <- 500
+s <- do(reps) * mean(rbeta(n=1000, .3, 4))
+histogram(s$mean)
+standard_error2 <- sd(s$mean)
+standard_error2
+```
+
+```{r}
+c <- qnorm(c(0.025, 0.25, 0.50, 0.75, 0.975), mean = 10, sd =2)
+c
+```
+
+```{r}
+plotDist("beta", shape1 = 2, shape2 = 4)
+z <- qbeta(c(0.025, 0.50, 0.975), shape1 = 2, shape2 = 4)
+z
+```
+
+## CIs
+
+Theoretical CIs typically represent the range of values corresponding to the central X% of a given sampling distribution.
+
+```{r}
+x <- c(2.9,4.8, 8.9, -3.2, 9.1, -2.5, -0.9, -0.1, 2.8, -1.7)
+m <- mean(x)
+se <- sd(x)/sqrt(length(x))
+ci <- m + c(qnorm(c(0.025, 0.975)))
+percent_ci <- 1
 ```
 
 ## Running Code
@@ -23,37 +62,3 @@ text
 ```{r}
 
 ```
-
-## Running Code
-
-text
-
-```{r}
-
-```
-
-## Running Code
-
-text
-
-```{r}
-
-```
-
-## Running Code
-
-text
-
-```{r}
-
-```
-
-## Running Code
-
-text
-
-```{r}
-
-```
-
-m

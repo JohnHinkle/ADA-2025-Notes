@@ -1,0 +1,45 @@
+---
+title: "2025-02-25"
+author: "John Hinkle"
+format: html
+editor: visual
+self-contained: true
+---
+
+# February 25th, 2025 notes
+
+## Load data and packages
+
+```{r}
+
+```
+
+## Title
+
+```{r}
+
+```
+
+## Title
+
+```{r}
+
+```
+
+## Title
+
+```{r}
+
+```
+
+## Title
+
+```{r}
+
+```
+
+## Title
+
+```{r}
+
+```
