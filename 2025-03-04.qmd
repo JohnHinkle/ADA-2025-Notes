@@ -1,0 +1,40 @@
+---
+title: "2025-03-04"
+author: "John Hinkle"
+format: html
+editor: visual
+self-contained: true
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Load data
+
+```{r}
+library(tidyverse)
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/tbs-2006-2008-ranges.csv"
+d <- read_csv(f, col_names = TRUE)
+```
+
+## Declare null hypothesis
+
+```{r}
+library(infer)
+d <- d |> specify(formula = kernel95 ~ sex) # ID variables of interest
+d <- d |> hypothesize(null = "independence") # null hypothesis
+```
+
+## Permutation
+
+```{r}
+perm <- d |> generate(reps = 1000, type = "permute")
+perm <- perm |> calculate(stat = "diff in means", order = c("M", "F"))
+```
+
+## text
+
+```{r}
+
+```
