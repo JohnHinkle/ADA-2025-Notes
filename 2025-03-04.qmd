@@ -55,28 +55,43 @@ get_p_value(perm, obs_stat = obs, direction = "both")
 ## Load packages
 
 ```{r}
+library(tidyverse)
 library(manipulate)
 library(patchwork)
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/zombies.csv"
+d <- read_csv(f, col_names = TRUE)
 ```
 
-## Text
+## Plot
 
 ```{r}
+library(ggplot2)
+plot <- ggplot(d, aes(x = weight, y = height)) +
+  geom_point(color = "#bf5700")
+plot
 ```
 
-## Text
+## Calculating co-variance (manually)
 
 ```{r}
+h <- d$height - mean(d$height)
+w <- d$weight - mean(d$weight)
+covariance <- sum(h*w)/(length(d$height)-1)
+covariance
 ```
 
-## Text
+## Using the 'cov()' function
 
 ```{r}
+cov(d$height, d$weight)
 ```
 
-## Text
+## Calculating correlation coefficent
 
 ```{r}
+correlation <- covariance/(sd(d$height)*sd(d$weight))
+correlation
+cor(d$height, d$weight)
 ```
 
 ## Text
