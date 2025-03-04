@@ -122,7 +122,7 @@ slope.test <- function(beta1, data) {
 manipulate(slope.test(beta1, data = d), beta1 = slider(-1, 1, initial = 0, step = 0.005))
 ```
 
-## Text
+## Beta coefficents
 
 ```{r}
 ```
