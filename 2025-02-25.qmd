@@ -6,40 +6,141 @@ editor: visual
 self-contained: true
 ---
 
-# February 25th, 2025 notes
+# February 25th, 2025 notes: Hypothesis Testing
 
 ## Load data and packages
 
 ```{r}
-
+library(tidyverse)
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/woolly-weights.csv"
+d <- read_csv(f, col_names = TRUE)
 ```
 
-## Title
+## Calculate statistics for weight
 
 ```{r}
-
+mean <- mean(d$weight)
+sd <- sd(d$weight)
+se <- sd/sqrt(length(d$weight))
+paste(mean,se)
 ```
 
-## Title
+## Perform hypothesis test and calculate the test statistic
 
 ```{r}
-
+null <- 7.2
+t_statistic <- (mean-null)/se
+t_statistic # measure of how far (in standard error units) your sample is from expectation
 ```
 
-## Title
+## Calculate 95% CI
+
+T-distributions have fatter tails
 
 ```{r}
-
+norm_ci <- mean + qnorm(p=c(0.025, 0.975))*se # based on normal distribution
+t_ci <- mean + qt(p=c(0.025, 0.975), ncp=0, df=14)*se # based on t-distribution
 ```
 
-## Title
+## CI based on bootstrapping
 
 ```{r}
-
+n_boot <- 1000
+n <- length(d$weight)
+boot <- vector()
+for (i in 1:n_boot){
+  boot[[i]] <- mean(sample(d$weight, n, replace = TRUE))
+}
+CI <- quantile(probs = c(0.025, 0.975),boot)
+CI
 ```
 
-## Title
+## A Two-Sample T test
 
 ```{r}
+library(ggplot2)
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/tbs-2006-2008-ranges.csv"
+d <- read_csv(file, col_names = TRUE)
 
+stats <- d |> group_by(sex) |> summarize(mk95 = mean(kernel95), 
+                                         sdk95 = sd(kernel95),
+                                         sek95 = sdk95/sqrt(n()))
+```
+
+## Boxplot
+
+```{r}
+ggplot(d, aes(x = sex, y = kernel95)) +
+  geom_boxplot() +
+  geom_point()
+```
+
+## Bootstrapping
+
+CIs don't overlap!
+
+```{r}
+males <- filter(d, sex == "M")
+females <- filter(d, sex == "F")
+n_boot=10000
+
+# Males
+n <- length(males$kernel95)
+boot_male <- vector()
+for (i in 1:n_boot){
+  boot_male[[i]] <- mean(sample(males$kernel95, n, replace = TRUE))
+}
+quantile(probs = c(0.025, 0.975),boot_male)
+
+# Females
+n <- length(females$kernel95)
+boot_female <- vector()
+for (i in 1:n_boot){
+  boot_female[[i]] <- mean(sample(females$kernel95, n, replace = TRUE))
+}
+quantile(probs = c(0.025, 0.975),boot_female)
+```
+
+## Histograms
+
+```{r}
+hist(boot_male)
+hist(boot_female)
+```
+
+## Q-Q plots
+
+```{r}
+qqnorm(boot_male)
+qqline(boot_male, col = "#bf5700")
+
+qqnorm(boot_female)
+qqline(boot_female, col = "#bf5700")
+```
+
+## CIs
+
+```{r}
+se_m <- sd(males$kernel95)/sqrt(length(males$kernel95))
+mean(males$kernel95) + qnorm(c(0.025,0.975)) * se_m
+
+se_f <- sd(females$kernel95)/sqrt(length(females$kernel95))
+mean(females$kernel95) + qnorm(c(0.025,0.975)) * se_f
+```
+
+## T-test
+
+```{r}
+t.test(x=males$kernel95, y=females$kernel95, alternative="two.sided", var.equal=TRUE)
+```
+
+## t
+
+```{r}
+library(infer)
+d <- d |> specify(formula = kernel95 ~ sex)
+d <- d |> hypothesize(null = "independence")
+perm <- d |> generate(reps = 10000, type = "permute")
+perm <- perm |> calculate(stat = "diff in means", order = c("M", "F"))
+perm
 ```
