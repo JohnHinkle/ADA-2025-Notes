@@ -125,4 +125,6 @@ manipulate(slope.test(beta1, data = d), beta1 = slider(-1, 1, initial = 0, step 
 ## Beta coefficents
 
 ```{r}
+print(beta1 <- cov(d$height, d$weight) / var(d$weight))
+print(beta0 <- mean(d$height) + beta1*mean(d$weight))
 ```
