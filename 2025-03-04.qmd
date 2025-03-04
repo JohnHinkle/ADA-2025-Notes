@@ -34,6 +34,46 @@ perm <- perm |> calculate(stat = "diff in means", order = c("M", "F"))
 visualize(perm, bins = 20)
 ```
 
+## Calculate observed test statistic
+
+```{r}
+obs <- d |>
+specify(kernel95 ~ sex) |>
+calculate(stat = "diff in means", order = c("M", "F"))
+```
+
+## Plot observed test statistic relative to permutation distribution
+
+```{r}
+visualize(perm, bins = 20) +
+  shade_p_value(obs, direction = "both")
+get_p_value(perm, obs_stat = obs, direction = "both")
+```
+
+# Regression
+
+## Load packages
+
+```{r}
+library(manipulate)
+library(patchwork)
+```
+
+## Text
+
+```{r}
+```
+
+## Text
+
+```{r}
+```
+
+## Text
+
+```{r}
+```
+
 ## Text
 
 ```{r}
