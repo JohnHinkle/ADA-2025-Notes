@@ -31,10 +31,30 @@ d <- d |> hypothesize(null = "independence") # null hypothesis
 ```{r}
 perm <- d |> generate(reps = 1000, type = "permute")
 perm <- perm |> calculate(stat = "diff in means", order = c("M", "F"))
+visualize(perm, bins = 20)
 ```
 
-## text
+## Text
 
 ```{r}
+```
 
+## Text
+
+```{r}
+```
+
+## Text
+
+```{r}
+```
+
+## Text
+
+```{r}
+```
+
+## Text
+
+```{r}
 ```
