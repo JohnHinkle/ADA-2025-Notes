@@ -1,0 +1,88 @@
+---
+title: "2025-03-27"
+author: "John Hinkle"
+format: html
+editor: visual
+---
+
+## Challenge 1
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+d <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/AVONETdataset1.csv")
+```
+
+```{r}
+d <- d |> mutate(Migration = as.factor(Migration))
+
+ggplot(data = d |> drop_na(Trophic.Level), aes(x = Trophic.Level, y = log(Mass))) +
+  geom_boxplot() +
+  geom_jitter()
+
+ggplot(data = d |> drop_na(Migration), 
+       aes(x = Migration, y = log(Mass))) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.5)
+```
+
+```{r}
+# Linear models
+m1 <- lm(log(Mass) ~ Trophic.Level, data = d)
+summary(m1) # body mass is not significantly different between carnivores and herbivores
+
+m2 <- lm(log(Mass) ~ Migration, data = d)
+summary(m2)
+```
+
+```{r}
+# post-hoc Tukey test
+m1aov <- aov(log(Mass) ~ Migration, data = d)
+(posthoc <- TukeyHSD(m1aov, which = "Migration", conf.level = 0.95))
+```
+
+```{r}
+library(infer)
+
+d <- d |> mutate(logMass = log(Mass))
+
+original.F <- aov(logMass ~ Trophic.Level, data = d) |>
+  broom::tidy() |>
+  filter(term == "Trophic.Level")
+
+permuted.F <- d |>
+  specify(logMass ~ Trophic.Level) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  calculate(stat = "F")
+```
+
+## Challenge 2
+
+```{r}
+m3 <- lm(logMass ~ log(Beak.Length_Culmen), data = d)
+m4 <- lm(logMass ~ log(Tarsus.Length), data = d)
+
+d <- d |> mutate(RelativeBeakLength = m3$residuals) |> 
+  mutate(RelativeTarsusLength = m4$residuals)
+
+ggplot(data = d, aes(x = Trophic.Niche, y = RelativeBeakLength)) +
+  geom_boxplot() 
+
+ggplot(data = d, aes(x = Primary.Lifestyle, y = RelativeTarsusLength)) +
+  geom_boxplot() 
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```

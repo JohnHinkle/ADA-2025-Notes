@@ -6,10 +6,6 @@ editor: visual
 self-contained: true
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
 ## Load data
 
 ```{r}
@@ -125,13 +121,65 @@ manipulate(slope.test(beta1, data = d), beta1 = slider(-1, 1, initial = 0, step 
 ## Beta coefficents
 
 ```{r}
-print(beta1 <- cov(d$height, d$weight) / var(d$weight))
-print(beta0 <- mean(d$height) - beta1*mean(d$weight))
+print(beta1 <- cov(d$height, d$weight) / var(d$weight)) # slope
+print(beta0 <- mean(d$height) - beta1*mean(d$weight)) # y-intercept
 ```
 
 ## Linear model
 
+Degrees of freedom = n - \# of variables being predicted
+
 ```{r}
 m <- lm(height~weight, data=d)
 summary(m)
+```
+
+```{r}
+m$coefficients
+head(m$fitted.values)
+head(m$residuals) # residuals should be normally distributed, otherwise you should transform data or use a different regression
+
+hist(m$residuals)
+```
+
+## Table of statistics
+
+```{r}
+broom::tidy(m) # tidy() function from broom package
+```
+
+## Calculate CIs for beta estimates (intercept and slope)
+
+```{r}
+confint(m)
+pt(47.49, df = 998, lower.tail = FALSE) +
+  pt(-47.49, df = 998, lower.tail = TRUE)
+```
+
+## Plots
+
+```{r}
+print(plot(m, col = "#bf5700"))
+```
+
+## Model 2 regression
+
+```{r}
+library(lmodel2)
+m2 <- lmodel2(height~weight, data=d,
+              range.y="relative", range.x="relative",
+              nperm=1000)
+m2
+```
+
+## text
+
+```{r}
+
+```
+
+## text
+
+```{r}
+
 ```
