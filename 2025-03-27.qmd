@@ -62,20 +62,85 @@ permuted.F <- d |>
 ## Challenge 2
 
 ```{r}
-m3 <- lm(logMass ~ log(Beak.Length_Culmen), data = d)
-m4 <- lm(logMass ~ log(Tarsus.Length), data = d)
+library(cowplot)
+
+m3 <- lm(log(Beak.Length_Culmen) ~ logMass, data = d)
+m4 <- lm(log(Tarsus.Length) ~ logMass, data = d)
 
 d <- d |> mutate(RelativeBeakLength = m3$residuals) |> 
   mutate(RelativeTarsusLength = m4$residuals)
 
-ggplot(data = d, aes(x = Trophic.Niche, y = RelativeBeakLength)) +
-  geom_boxplot() 
+box1 <- ggplot(data = d, aes(x = Trophic.Niche, y = RelativeBeakLength)) +
+  geom_boxplot(color = "dodgerblue4") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
 
-ggplot(data = d, aes(x = Primary.Lifestyle, y = RelativeTarsusLength)) +
-  geom_boxplot() 
+box2 <- ggplot(data = d, aes(x = Primary.Lifestyle, y = RelativeTarsusLength)) +
+  geom_boxplot(color = "dodgerblue4") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+
+plot_grid(box1, box2, nrow = 1)
 ```
 
 ```{r}
+migration <- d |> 
+  drop_na(Migration) |>
+  mutate(logRS = log(Range.Size))
+
+hist(migration$Range.Size)
+hist(migration$logRS)
+
+m5 <- lm(logRS ~ Migration, data = migration)
+summary(m5)
+
+aov <- aov(logRS ~ Migration, data = migration)
+summary(aov)
+```
+
+```{r}
+songbirds <- d |> filter(Order1 == "Passeriformes")
+
+box1 <- ggplot(data = songbirds, aes(x = Primary.Lifestyle, y = RelativeBeakLength)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.05) +
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+
+box2 <- ggplot(data = songbirds, aes(x = Primary.Lifestyle, y = RelativeTarsusLength)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.05) +
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+
+plot_grid(box1, box2, nrow = 1)
+
+m6 <- lm(RelativeBeakLength ~ Primary.Lifestyle, data = songbirds)
+summary(m6)
+
+m7 <- lm(RelativeTarsusLength ~ Primary.Lifestyle, data = songbirds)
+summary(m7)
+```
+
+```{r}
+# Two-factor
+m8 <- lm(RelativeBeakLength ~ Primary.Lifestyle + Trophic.Level, data = songbirds)
+summary(m8)
+```
+
+```{r}
+m9 <- lm(RelativeBeakLength ~ Primary.Lifestyle + Trophic.Level + Primary.Lifestyle:Trophic.Level, data = songbirds)
+summary(m9)
+```
+
+```{r}
+# Equivalent to m9
+m10 <- lm(RelativeBeakLength ~ Primary.Lifestyle + Primary.Lifestyle*Trophic.Level, data = songbirds)
+summary(m10)
+```
+
+## Beyond the exercise
+```{r}
+library(car)
+library(jtools)
+
+z <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/zombies.csv", col_names = TRUE)
 
 ```
 
