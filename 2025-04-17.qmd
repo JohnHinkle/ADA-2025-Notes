@@ -1,0 +1,73 @@
+---
+title: "2025-04-17"
+author: "John Hinkle"
+format: html
+editor: visual
+self-contained: true
+---
+
+## Load data
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+d <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/chimpgrooming.csv", col_names = TRUE)
+head(d)
+```
+
+## x
+
+```{r}
+library(ggplot2)
+library(cowplot)
+
+p1 <- ggplot(d, aes(x = subject, y = duration)) +
+  geom_boxplot() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+
+p2 <- ggplot(d, aes(x = reprocondition, y = duration)) +
+  geom_boxplot() +
+  theme_classic() +
+  labs(y=NULL)
+
+p3 <- ggplot(d, aes(x = parity, y = duration)) +
+  geom_boxplot() +
+  theme_classic() +
+  labs(y=NULL)
+
+plot_grid(p1, p2, p3, nrow=1)
+```
+
+## Random intercept model
+
+```{r}
+library(lme4)
+m <- lmer(data = d,
+          duration ~ reprocondition + parity + (1|subject))
+summary(m)
+```
+
+## x
+
+```{r}
+
+```
+
+## x
+
+```{r}
+
+```
+
+## x
+
+```{r}
+
+```
+
+## x
+
+```{r}
+
+```

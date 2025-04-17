@@ -1,0 +1,145 @@
+---
+title: "2025-04-10"
+author: "John Hinkle"
+format: html
+editor: visual
+self-contained: true
+---
+
+## Load data
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+d <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/titanic_train.csv", col_names = TRUE)
+
+d  <- d |>
+  mutate(Sex = as.factor(Sex),
+         Pclass = as.factor(Pclass),
+         Embarked = as.factor(Embarked)) |>
+  select(-c(PassengerId, Ticket, Cabin))
+```
+
+```{r}
+library(cowplot)
+p1 <- ggplot(d, aes(x = Survived, y = Age)) +
+  geom_point()
+
+p2 <- ggplot(d, aes(x = Sex, y = Survived)) +
+  geom_violin() +
+  geom_jitter()
+
+p3 <- ggplot(d, aes(x = Pclass, y = Survived)) +
+  geom_violin() +
+  geom_jitter()
+
+plot_grid(p1,p2, p3)
+```
+
+log(odds of survival) = 1.0566 - 2.5137\*(if male, 1; if female, 0)
+
+```{r}
+m <- glm(Survived ~ Sex, family = "binomial", data = d)
+summary(m)
+```
+
+Odds Ratio = Probability of surviving / probability of dying
+
+```{r}
+coefs <- broom::tidy(m) |> select(estimate)
+logOR_female_survival <- coefs$estimate[1] + coefs$estimate[2]*0
+logOR_male_survival <- coefs$estimate[1] + coefs$estimate[2]*1
+
+(OR_female_survival <- exp(logOR_female_survival))
+(OR_male_survival <- exp(logOR_male_survival))
+
+```
+
+Probability of surviving
+
+74% for female, 18% for male
+
+```{r}
+(female_survival_prob <- OR_female_survival / (1 + OR_female_survival))
+(male_survival_prob <- OR_male_survival / (1 + OR_male_survival))
+```
+
+Age
+
+```{r}
+m <- glm(Survived ~ Age, family = "binomial", data = d)
+summary(m)
+```
+
+```{r}
+coefs <- broom::tidy(m) |> select(estimate)
+
+(logOR_age_survival <- coefs$estimate[2])
+
+(OR_age_survival <- exp(logOR_age_survival))
+
+(age_survival_prob <- OR_age_survival / (1 + OR_age_survival))
+```
+
+Log(Odds Ratio) is the response variable
+
+```{r}
+glm1 <- glm(data = d, Survived ~ Pclass, family = "binomial")
+summary(glm1)
+```
+
+```{r}
+glm2 <- glm(data = d, Survived ~ Pclass + Sex, family = "binomial")
+summary(glm2)
+
+coefs <- broom::tidy(glm2) |> select(estimate)
+```
+
+```{r}
+library(lmtest)
+lrtest(glm1, glm2)
+```
+
+Load data
+
+```{r}
+d <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/woollydata.csv", col_names = TRUE)
+head(d)
+```
+
+```{r}
+ggplot(data = d, aes(x = age, y = success)) +
+  geom_point(size = 3,
+             color = "#BF5700") +
+  theme_classic()
+```
+
+```{r}
+glm <- glm(data = d, success ~ age, family = "poisson")
+summary(glm)
+```
+
+```{r}
+glm1 <- glm(data = d, success ~ 1, family = "poisson")
+summary(glm1)
+```
+
+```{r}
+lrtest(glm, glm1)
+```
+
+```{r}
+lrtest(glm)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
