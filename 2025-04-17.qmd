@@ -48,26 +48,65 @@ m <- lmer(data = d,
 summary(m)
 ```
 
-## x
+## Models
 
 ```{r}
+library(lmtest)
+fuller <- lmer(data = d,
+          duration ~ reprocondition + parity + (1|subject))
+reduced <- lmer(data = d,
+          duration ~ parity + (1|subject), REML = FALSE)
+
+anova(fuller, reduced, test = "Chisq")
+```
+
+## Random slopes models
+
+```{r}
+full <- lmer(data = d,
+          duration ~ reprocondition + parity + 
+            (1 + reprocondition|subject) + 
+            (1 + parity|subject), REML = FALSE)
+summary(full)
+```
+
+## Model
+
+```{r}
+minusRC <- lmer(data = d,
+          duration ~ parity + 
+            (1 + reprocondition|subject) + 
+            (1 + parity|subject), REML = FALSE)
+summary(minusRC)
+```
+
+## Model
+
+```{r}
+minusP <- lmer(data = d,
+          duration ~ reprocondition + 
+            (1 + reprocondition|subject) + 
+            (1 + parity|subject), REML = FALSE)
+summary(minusP)
+```
+
+```{r}
+anova(minusRC, full, test = "Chisq") # adding RC adds explanatory power
+anova(minusP, full, test = "Chisq") # adding P adds explanatory power
+```
+
+```{r}
+null <- lmer(data = d, duration ~
+               (1 + reprocondition|subject) + 
+               (1 + parity|subject), REML =  FALSE)
+
+#library(AICcmodavg)
 
 ```
 
-## x
+# Otters
 
 ```{r}
-
-```
-
-## x
-
-```{r}
-
-```
-
-## x
-
-```{r}
-
+o <- read_csv("https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/Bowden-ParryOtter.csv", col_names = TRUE)
+head(o)
 ```
